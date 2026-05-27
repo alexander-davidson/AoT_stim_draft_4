@@ -38,6 +38,7 @@ while running:
     surf.draw_grid(screen)
     surf.show_indices(screen)
 
+
     pg.display.update()
 
 pg.quit()
