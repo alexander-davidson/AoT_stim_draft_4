@@ -20,7 +20,7 @@ def show_indices(screen: pg.Surface):
         if y >= 0:
             text = st.font.render(f'{int(x//st.cell)}, {int(y//st.cell)}', True, (255, 255, 255))
             screen.blit(text, (10, 10))
-            print('yes')
+
 
 
 

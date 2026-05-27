@@ -1,6 +1,7 @@
 import pygame as pg
 import stim_surface as surf
 from state import state as st
+import stimuli as stim
 
 
 
