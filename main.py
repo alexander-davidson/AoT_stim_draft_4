@@ -15,7 +15,9 @@ scr_h = screen.get_height()
 
 # ------------------
 # pre loop setup
+clock = pg.time.Clock()
 
+balls = stim.make_balls()
 
 # ------------------
 # main loop
@@ -33,12 +35,30 @@ while running:
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 running = False
+    
+    # ------------------
+    # update
+    dt = clock.tick(60)/1000
+
+    for ball in balls:
+        ball.update(dt)
+        ball.resolve_boundary(st.grd_surface.get_width(), st.grd_surface.get_height())
+    stim.get_x_coords_of_balls(balls)
+    print(st.blu_posx[0])
+
+    for i, ball in enumerate(balls):
+        for other in balls[i+1:]:
+            ball.resolve_collision(other)
+
+
 
     # ------------------
     # draw
     surf.draw_grid(screen)
     surf.show_indices(screen)
 
+    for ball in balls:
+        ball.draw(screen)
 
     pg.display.update()
 
