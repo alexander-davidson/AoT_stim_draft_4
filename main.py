@@ -44,7 +44,7 @@ while running:
         ball.update(dt)
         ball.resolve_boundary(st.grd_surface.get_width(), st.grd_surface.get_height())
     stim.get_x_coords_of_balls(balls)
-    print(st.blu_posx[0])
+
 
     for i, ball in enumerate(balls):
         for other in balls[i+1:]:
