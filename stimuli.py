@@ -13,7 +13,7 @@ class Ball:
         self.col = colour
         self.rad = 14
         self.speed = speed
-        self.vel = pg.Vector2(rng.uniform(-1, 1), rng.uniform(-1, 1))
+        self.vel = pg.math.Vector2(rng.uniform(-1, 1), rng.uniform(-1, 1)).normalize() * self.speed
         self.id = id
 
     def update(self, dt: float):
@@ -71,15 +71,31 @@ def make_balls():
         offs_y = y*st.cell+st.cell/2
         for x in st.stim_x_coords_grn:
             offs_x = x*st.cell+st.cell/2
-            grn_balls.append(Ball(offs_x, offs_y, (0, 255, 0), 0, 'grn'))
+            grn_balls.append(Ball(offs_x, offs_y, (0, 255, 0), 2, 'grn'))
     for y in st.stim_y_coords:
         offs_y = y*st.cell+st.cell/2
         for x in st.stim_x_coords_blu:
             offs_x = x*st.cell+st.cell/2
-            grn_balls.append(Ball(offs_x, offs_y, (0, 0, 255), 0, 'blu'))
+            grn_balls.append(Ball(offs_x, offs_y, (0, 0, 255), 2, 'blu'))
     return blu_balls + grn_balls
 
 def get_x_coords_of_balls(balls):
     
     st.grn_posx = [ball.pos[0] for ball in balls if ball.id == 'grn']
     st.blu_posx = [ball.pos[0] for ball in balls if ball.id == 'blu']
+
+def check_for_parity(width: float):
+
+    half_blu_on_left = [x for x in st.blu_posx if x + st.rad*2 < width/2]
+    half_grn_on_left = [x for x in st.grn_posx if x + st.rad*2 < width/2]
+    half_blu_on_right = [x for x in st.blu_posx if x > width/2]
+    half_grn_on_right = [x for x in st.grn_posx if x > width/2]
+    print(len(half_blu_on_left))
+
+    if (len(half_blu_on_left) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2 
+        and len(half_grn_on_right) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2):
+        st.parity_achieved = True
+    if (len(half_blu_on_right) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2 
+        and len(half_grn_on_left) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2):
+        st.parity_achieved = True
+    

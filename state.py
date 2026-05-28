@@ -12,6 +12,7 @@ class State:
                                        self.y_indices*self.cell))
         self.w = self.grd_surface.get_width()
         self.h = self.grd_surface.get_height()
+        self.rad = 14
 
         self.font = pg.font.SysFont('arial', 20)
 
@@ -21,6 +22,8 @@ class State:
 
         self.grn_posx = []
         self.blu_posx = []
+
+        self.parity_achieved = False
 
 
 state = State()
