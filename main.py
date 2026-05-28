@@ -2,6 +2,8 @@ import pygame as pg
 import stim_surface as surf
 from state import state as st
 import stimuli as stim
+import numpy as np
+import cv2
 
 
 
@@ -18,6 +20,9 @@ scr_h = screen.get_height()
 clock = pg.time.Clock()
 
 balls = stim.make_balls()
+
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter('output.mp4', fourcc, 60, (screen.get_width(), screen.get_height()))
 
 # ------------------
 # main loop
@@ -60,9 +65,18 @@ while running:
     surf.draw_grid(screen)
     surf.show_indices(screen)
 
+
+
+
     for ball in balls:
         ball.draw(screen)
 
     pg.display.update()
 
+    frame = pg.surfarray.array3d(screen)       # pygame surface → numpy array
+    frame = frame.transpose(1, 0, 2)           # pygame is (x,y) cv2 expects (y,x)
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  # pygame is RGB, cv2 expects BGR
+    out.write(frame)
+
+out.release()
 pg.quit()
