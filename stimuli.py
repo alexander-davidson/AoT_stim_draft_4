@@ -86,10 +86,10 @@ def get_x_coords_of_balls(balls):
 
 def check_for_parity(width: float):
 
-    half_blu_on_left = [x for x in st.blu_posx if x + st.rad*2 < width/2]
-    half_grn_on_left = [x for x in st.grn_posx if x + st.rad*2 < width/2]
-    half_blu_on_right = [x for x in st.blu_posx if x > width/2]
-    half_grn_on_right = [x for x in st.grn_posx if x > width/2]
+    half_blu_on_left = [x for x in st.blu_posx if x + st.rad < width/2]
+    half_grn_on_left = [x for x in st.grn_posx if x + st.rad < width/2]
+    half_blu_on_right = [x for x in st.blu_posx if x - st.rad > width/2]
+    half_grn_on_right = [x for x in st.grn_posx if x - st.rad > width/2]
     print(len(half_blu_on_left))
 
     if (len(half_blu_on_left) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2 
