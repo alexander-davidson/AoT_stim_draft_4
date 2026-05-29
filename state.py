@@ -23,6 +23,11 @@ class State:
         self.grn_posx = []
         self.blu_posx = []
 
+        self.no_blu_left = len(self.stim_x_coords_blu) * len(self.stim_y_coords)
+        self.no_blu_right = len(self.stim_x_coords_blu) * len(self.stim_y_coords)
+        self.no_grn_left = len(self.stim_x_coords_grn) * len(self.stim_y_coords)
+        self.no_grn_right = len(self.stim_x_coords_grn) * len(self.stim_y_coords)
+
         self.parity_achieved = False
 
 

@@ -11,7 +11,8 @@ pg.init()
 # ------------------
 # window
 
-screen = pg.display.set_mode((800, 500))
+# screen = pg.display.set_mode((800, 500))
+screen = pg.display.set_mode((0, 0), flags= pg.FULLSCREEN)
 scr_w = screen.get_width()
 scr_h = screen.get_height()
 
@@ -49,23 +50,23 @@ while running:
         ball.update(dt)
         ball.resolve_boundary(st.grd_surface.get_width(), st.grd_surface.get_height())
 
-    stim.get_x_coords_of_balls(balls)
-
-    stim.check_for_parity(st.grd_surface.get_width())
-
-    if st.parity_achieved == True:
-        running = False
-
     for i, ball in enumerate(balls):
         for other in balls[i+1:]:
             ball.resolve_collision(other)
 
+    stim.get_x_coords_of_balls(balls, screen)
+
+    stim.check_for_parity(st.grd_surface.get_width())
+    #stim.check_for_parity(balls)
+    st.blu_posx = []
+    st.grn_posx = []
+
+    if st.parity_achieved == True:
+        running = False
     # ------------------
     # draw
     surf.draw_grid(screen)
     surf.show_indices(screen)
-
-
 
 
     for ball in balls:

@@ -71,31 +71,51 @@ def make_balls():
         offs_y = y*st.cell+st.cell/2
         for x in st.stim_x_coords_grn:
             offs_x = x*st.cell+st.cell/2
-            grn_balls.append(Ball(offs_x, offs_y, (0, 255, 0), 2, 'grn'))
+            grn_balls.append(Ball(offs_x, offs_y, (0, 255, 0), 2.2, 'grn'))
     for y in st.stim_y_coords:
         offs_y = y*st.cell+st.cell/2
         for x in st.stim_x_coords_blu:
             offs_x = x*st.cell+st.cell/2
-            grn_balls.append(Ball(offs_x, offs_y, (0, 0, 255), 2, 'blu'))
+            grn_balls.append(Ball(offs_x, offs_y, (0, 0, 255), 2.2, 'blu'))
     return blu_balls + grn_balls
 
-def get_x_coords_of_balls(balls):
+def get_x_coords_of_balls(balls, screen):
     
     st.grn_posx = [ball.pos[0] for ball in balls if ball.id == 'grn']
     st.blu_posx = [ball.pos[0] for ball in balls if ball.id == 'blu']
 
+    # checking x position with lines
+    # for b in st.grn_posx:
+    #     pg.draw.line(st.grd_surface, (255, 0, 255), (b - st.rad, 0), (b - st.rad, st.grd_surface.get_height()), 1)
+    #     screen.blit(st.grd_surface, (screen.get_width()/2 - st.w/2,
+    #                                  screen.get_height()-st.h))
+
 def check_for_parity(width: float):
 
-    half_blu_on_left = [x for x in st.blu_posx if x + st.rad < width/2]
-    half_grn_on_left = [x for x in st.grn_posx if x + st.rad < width/2]
-    half_blu_on_right = [x for x in st.blu_posx if x - st.rad > width/2]
-    half_grn_on_right = [x for x in st.grn_posx if x - st.rad > width/2]
-    print(len(half_blu_on_left))
+    count = int((len(st.stim_x_coords_blu) * len(st.stim_y_coords)) // 2)
+    mid = int(width // 2)
 
-    if (len(half_blu_on_left) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2 
-        and len(half_grn_on_right) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2):
+    # half_blu_on_left = [x for x in st.blu_posx if x + st.rad < mid]
+    # half_grn_on_left = [x for x in st.grn_posx if x + st.rad < mid]
+    # half_blu_on_right = [x for x in st.blu_posx if x - st.rad > mid]
+    # half_grn_on_right = [x for x in st.grn_posx if x - st.rad > mid]
+    half_blu_on_left = [x for x in st.blu_posx if x < mid]
+    half_grn_on_left = [x for x in st.grn_posx if x < mid]
+    half_blu_on_right = [x for x in st.blu_posx if x > mid]
+    half_grn_on_right = [x for x in st.grn_posx if x > mid]
+    print(len(half_grn_on_right))
+
+    # case_a = (len(half_blu_on_left) == count) and (len(half_grn_on_right) == count)
+    # case_b = (len(half_grn_on_left) == count) and (len(half_blu_on_right) == count)
+
+    # if case_a or case_b:
+    #     st.parity_achieved = True
+    # else:
+    #     st.parity_achieved = False
+
+    if len(half_blu_on_left) == 6 and len(half_grn_on_right) == 6:
         st.parity_achieved = True
-    if (len(half_blu_on_right) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2 
-        and len(half_grn_on_left) == (len(st.stim_x_coords_blu)*len(st.stim_y_coords))/2):
+    elif len(half_blu_on_right) == 6 and len(half_grn_on_left) == 6:
         st.parity_achieved = True
-    
+    else: st.parity_achieved = False
+
