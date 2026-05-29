@@ -4,6 +4,7 @@ from state import state as st
 import stimuli as stim
 import numpy as np
 import cv2
+import random as rng
 
 
 
@@ -12,7 +13,7 @@ pg.init()
 # window
 
 # screen = pg.display.set_mode((800, 500))
-screen = pg.display.set_mode((0, 0), flags= pg.FULLSCREEN)
+screen = pg.display.set_mode((800, 500))#, flags= pg.FULLSCREEN)
 scr_w = screen.get_width()
 scr_h = screen.get_height()
 
@@ -25,10 +26,16 @@ balls = stim.make_balls()
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out = cv2.VideoWriter('output.mp4', fourcc, 60, (screen.get_width(), screen.get_height()))
 
+accumulator = 0
+delay = 1
+
+speed = 2.2
+
 # ------------------
 # main loop
 
 running = True
+set_vel = False
 
 while running:
 
@@ -45,6 +52,14 @@ while running:
     # ------------------
     # update
     dt = clock.tick(60)/1000
+    
+    accumulator += dt
+    print(balls[0].speed)
+    if accumulator > delay and set_vel == False:
+        for ball in balls:
+            ball.vel = pg.math.Vector2(rng.uniform(-1, 1), rng.uniform(-1, 1)).normalize() * speed
+        set_vel = True
+    
 
     for ball in balls:
         ball.update(dt)
@@ -57,7 +72,7 @@ while running:
     stim.get_x_coords_of_balls(balls, screen)
 
     stim.check_for_parity(st.grd_surface.get_width())
-    #stim.check_for_parity(balls)
+
     st.blu_posx = []
     st.grn_posx = []
 
@@ -65,6 +80,7 @@ while running:
         running = False
     # ------------------
     # draw
+
     surf.draw_grid(screen)
     surf.show_indices(screen)
 

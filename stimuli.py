@@ -13,7 +13,7 @@ class Ball:
         self.col = colour
         self.rad = 14
         self.speed = speed
-        self.vel = pg.math.Vector2(rng.uniform(-1, 1), rng.uniform(-1, 1)).normalize() * self.speed
+        self.vel = pg.math.Vector2(0, 0)
         self.id = id
 
     def update(self, dt: float):
@@ -103,7 +103,7 @@ def check_for_parity(width: float):
     half_grn_on_left = [x for x in st.grn_posx if x < mid]
     half_blu_on_right = [x for x in st.blu_posx if x > mid]
     half_grn_on_right = [x for x in st.grn_posx if x > mid]
-    print(len(half_grn_on_right))
+
 
     # case_a = (len(half_blu_on_left) == count) and (len(half_grn_on_right) == count)
     # case_b = (len(half_grn_on_left) == count) and (len(half_blu_on_right) == count)
