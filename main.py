@@ -13,7 +13,7 @@ pg.init()
 # window
 
 # screen = pg.display.set_mode((800, 500))
-screen = pg.display.set_mode((800, 500))#, flags= pg.FULLSCREEN)
+screen = pg.display.set_mode((800, 500), flags= pg.FULLSCREEN)
 scr_w = screen.get_width()
 scr_h = screen.get_height()
 
@@ -39,7 +39,7 @@ set_vel = False
 
 while running:
 
-    screen.fill((0, 0, 0))
+    screen.fill((255, 255, 255))
     st.grd_surface.fill((255, 255, 255))
 
     # ------------------

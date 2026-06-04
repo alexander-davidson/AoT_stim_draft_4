@@ -1,3 +1,5 @@
 __pycache__
 .venv
 output.mp4
+.vscode
+lib
