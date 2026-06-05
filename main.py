@@ -8,7 +8,7 @@ import random as rng
 
 
 
-for v_no in range(2):
+for v_no in range(1):
 
     pg.init()
     # ------------------
@@ -23,7 +23,7 @@ for v_no in range(2):
     # pre loop setup
     clock = pg.time.Clock()
 
-    balls = stim.make_balls()
+    balls = stim.make_balls(1.5)
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/05 Arrow of time/03 videos/raw_video/output_{v_no}.mp4', fourcc, 60, (screen.get_width(), screen.get_height()))
@@ -41,7 +41,7 @@ for v_no in range(2):
 
     while running:
 
-        screen.fill((255, 255, 255))
+        screen.fill((0, 0, 0))
         st.grd_surface.fill((255, 255, 255))
 
         # ------------------

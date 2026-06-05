@@ -64,19 +64,19 @@ class Ball:
         screen.blit(st.grd_surface, (screen.get_width()/2 - st.w/2,
                                      screen.get_height()-st.h))
 
-def make_balls():
+def make_balls(speed: float):
     grn_balls = []
     blu_balls = []
     for y in st.stim_y_coords:
         offs_y = y*st.cell+st.cell/2
         for x in st.stim_x_coords_grn:
             offs_x = x*st.cell+st.cell/2
-            grn_balls.append(Ball(offs_x, offs_y, (0, 255, 0), 2.2, 'grn'))
+            grn_balls.append(Ball(offs_x, offs_y, (0, 255, 0), speed, 'grn'))
     for y in st.stim_y_coords:
         offs_y = y*st.cell+st.cell/2
         for x in st.stim_x_coords_blu:
             offs_x = x*st.cell+st.cell/2
-            grn_balls.append(Ball(offs_x, offs_y, (0, 0, 255), 2.2, 'blu'))
+            grn_balls.append(Ball(offs_x, offs_y, (0, 0, 255), speed, 'blu'))
     return blu_balls + grn_balls
 
 def get_x_coords_of_balls(balls, screen):
