@@ -13,7 +13,7 @@ class Ball:
         self.col = colour
         self.rad = 14
         self.speed = speed
-        self.vel = pg.math.Vector2(rng.uniform(-1, 1), rng.uniform(-1, 1)).normalize() * speed
+        self.vel = pg.math.Vector2(0, 0)
         self.id = id
 
     def update(self, dt: float):

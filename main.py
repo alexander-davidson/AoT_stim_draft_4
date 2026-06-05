@@ -28,8 +28,8 @@ for v_no in range(1):
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/05 Arrow of time/03 videos/raw_video/output_{v_no}.mp4', fourcc, 60, (screen.get_width(), screen.get_height()))
 
-    # accumulator = 0
-    # delay = 1
+    accumulator = 0
+    delay = .2
 
     # speed = 2.2
 
@@ -55,12 +55,11 @@ for v_no in range(1):
         # update
         dt = clock.tick(60)/1000
         
-        # accumulator += dt
-        # print(balls[0].speed)
-        # if accumulator > delay and set_vel == False:
-        #     for ball in balls:
-        #         ball.vel = pg.math.Vector2(rng.uniform(-1, 1), rng.uniform(-1, 1)).normalize() * speed
-        #     set_vel = True
+        accumulator += dt
+        if accumulator > delay and set_vel == False:
+            for ball in balls:
+                ball.vel = pg.math.Vector2(rng.uniform(-1, 1), rng.uniform(-1, 1)).normalize() * balls[0].speed
+            set_vel = True
         
 
         for ball in balls:

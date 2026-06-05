@@ -3,10 +3,10 @@ from state import state as st
 
 def draw_grid(screen: pg.Surface):
 
-    # for x in range(st.x_indices):
-    #     pg.draw.line(st.grd_surface, (0, 0, 0), (x*st.cell, 0), (x*st.cell, st.h))
-    # for y in range(st.y_indices):
-    #     pg.draw.line(st.grd_surface, (0, 0, 0), (0, y*st.cell), (st.w, y*st.cell))
+    for x in range(st.x_indices):
+        pg.draw.line(st.grd_surface, (0, 0, 0), (x*st.cell, 0), (x*st.cell, st.h))
+    for y in range(st.y_indices):
+        pg.draw.line(st.grd_surface, (0, 0, 0), (0, y*st.cell), (st.w, y*st.cell))
     pg.draw.rect(st.grd_surface, (0, 0, 0), (0, 0, st.w, st.h), 1)
     # pg.draw.line(st.grd_surface, (255, 0, 0), (st.grd_surface.get_width()/2, 0),
     #              (st.grd_surface.get_width()/2, st.grd_surface.get_height()), 1)
