@@ -9,7 +9,7 @@ import os
 
 
 
-for v_no in range(2):
+for v_no in range(20):
 
     pg.init()
     # ------------------
@@ -28,7 +28,7 @@ for v_no in range(2):
     balls = stim.make_balls(1.5)
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/arrow_time_ideas/stim_draft_3/output_{v_no}.mp4', fourcc, 60, (screen.get_width(), screen.get_height()))
+    out = cv2.VideoWriter(rf'path/output_{v_no}.mp4', fourcc, 60, (screen.get_width(), screen.get_height()))
 
     accumulator = 0
     frame_count = 0 #new
@@ -103,11 +103,11 @@ for v_no in range(2):
     #removes video if parity not achieved or if video is too short
     out.release()
     if st.parity_achieved == False:
-        os.remove(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/arrow_time_ideas/stim_draft_3/output_{v_no}.mp4')
+        os.remove(rf'path/output_{v_no}.mp4')
         pg.quit()
         continue
     if frame_count < 600:
-        os.remove(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/arrow_time_ideas/stim_draft_3/output_{v_no}.mp4')
+        os.remove(rf'path/output_{v_no}.mp4')
         pg.quit()
         continue
     pg.quit()
