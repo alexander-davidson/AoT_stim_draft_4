@@ -5,10 +5,11 @@ import stimuli as stim
 import numpy as np
 import cv2
 import random as rng
+import os
 
 
 
-for v_no in range(1):
+for v_no in range(2):
 
     pg.init()
     # ------------------
@@ -23,12 +24,15 @@ for v_no in range(1):
     # pre loop setup
     clock = pg.time.Clock()
 
+    # speed of balls
     balls = stim.make_balls(1.5)
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/05 Arrow of time/03 videos/raw_video/output_{v_no}.mp4', fourcc, 60, (screen.get_width(), screen.get_height()))
+    out = cv2.VideoWriter(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/arrow_time_ideas/stim_draft_3/output_{v_no}.mp4', fourcc, 60, (screen.get_width(), screen.get_height()))
 
     accumulator = 0
+    frame_count = 0 #new
+    st.parity_achieved = False
     delay = .2
 
     # speed = 2.2
@@ -50,17 +54,14 @@ for v_no in range(1):
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     running = False
-        
         # ------------------
         # update
         dt = clock.tick(60)/1000
-        
         accumulator += dt
         if accumulator > delay and set_vel == False:
             for ball in balls:
                 ball.vel = pg.math.Vector2(rng.uniform(-1, 1), rng.uniform(-1, 1)).normalize() * balls[0].speed
-            set_vel = True
-        
+                set_vel = True
 
         for ball in balls:
             ball.update(dt)
@@ -91,10 +92,22 @@ for v_no in range(1):
 
         pg.display.update()
 
-        frame = pg.surfarray.array3d(screen)       # pygame surface → numpy array
-        frame = frame.transpose(1, 0, 2)           # pygame is (x,y) cv2 expects (y,x)
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  # pygame is RGB, cv2 expects BGR
+        frame = pg.surfarray.array3d(screen) # pygame surface → numpy array
+        frame = frame.transpose(1, 0, 2) # pygame is (x,y) cv2 expects (y,x)
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) # pygame is RGB, cv2 expects BGR
         out.write(frame)
+        frame_count += 1 #this and below is new
+        if frame_count >= 720:
+            running = False
 
+    #removes video if parity not achieved or if video is too short
     out.release()
+    if st.parity_achieved == False:
+        os.remove(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/arrow_time_ideas/stim_draft_3/output_{v_no}.mp4')
+        pg.quit()
+        continue
+    if frame_count < 600:
+        os.remove(rf'/Users/alexander/Library/CloudStorage/OneDrive-QueenMary,UniversityofLondon/arrow_time_ideas/stim_draft_3/output_{v_no}.mp4')
+        pg.quit()
+        continue
     pg.quit()
