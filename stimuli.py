@@ -56,7 +56,6 @@ class Ball:
         elif self.pos.y + self.rad > height:
             self.pos.y = height - self.rad
             self.vel.y *= -self.restitution
-    
 
     def draw(self, screen: pg.Surface):
 
@@ -84,34 +83,15 @@ def get_x_coords_of_balls(balls, screen):
     st.grn_posx = [ball.pos[0] for ball in balls if ball.id == 'grn']
     st.blu_posx = [ball.pos[0] for ball in balls if ball.id == 'blu']
 
-    # checking x position with lines
-    # for b in st.grn_posx:
-    #     pg.draw.line(st.grd_surface, (255, 0, 255), (b - st.rad, 0), (b - st.rad, st.grd_surface.get_height()), 1)
-    #     screen.blit(st.grd_surface, (screen.get_width()/2 - st.w/2,
-    #                                  screen.get_height()-st.h))
-
 def check_for_parity(width: float):
 
     count = int((len(st.stim_x_coords_blu) * len(st.stim_y_coords)) // 2)
     mid = int(width // 2)
 
-    # half_blu_on_left = [x for x in st.blu_posx if x + st.rad < mid]
-    # half_grn_on_left = [x for x in st.grn_posx if x + st.rad < mid]
-    # half_blu_on_right = [x for x in st.blu_posx if x - st.rad > mid]
-    # half_grn_on_right = [x for x in st.grn_posx if x - st.rad > mid]
     half_blu_on_left = [x for x in st.blu_posx if x < mid]
     half_grn_on_left = [x for x in st.grn_posx if x < mid]
     half_blu_on_right = [x for x in st.blu_posx if x > mid]
     half_grn_on_right = [x for x in st.grn_posx if x > mid]
-
-
-    # case_a = (len(half_blu_on_left) == count) and (len(half_grn_on_right) == count)
-    # case_b = (len(half_grn_on_left) == count) and (len(half_blu_on_right) == count)
-
-    # if case_a or case_b:
-    #     st.parity_achieved = True
-    # else:
-    #     st.parity_achieved = False
 
     if len(half_blu_on_left) == 6 and len(half_grn_on_right) == 6:
         st.parity_achieved = True
